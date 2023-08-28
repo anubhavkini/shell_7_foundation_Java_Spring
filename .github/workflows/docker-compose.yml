@@ -1,0 +1,29 @@
+name: Docker Compose
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # You can change the runner OS as needed
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Compose
+      run: |
+        sudo apt-get -y install docker-compose
+      continue-on-error: true
+
+    - name: Build and Run Docker Compose
+      run: |
+        docker-compose --version
+        docker-compose up -d
+
+    - name: Tear Down Docker Compose
+      run: |
+        docker-compose down
+
